@@ -1,0 +1,40 @@
+.borderOff {
+  border: none !important;
+  box-shadow: none !important; /* Remove any shadow that may appear as a border */
+}
+
+button .initial-text {
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+button:hover .initial-text,
+button:focus .initial-text,
+button:active .initial-text {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+button .full-text {
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+button:hover .full-text,
+button:focus .full-text,
+button:active .full-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}

@@ -1,0 +1,53 @@
+
+<div class="relative flex  justify-center overflow-x-hidden  overflow-y-auto rounded-lg  p-6 transform transition-transform mt-6">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+ <!-- Title Section -->
+ <div class="mb-4 flex items-center space-x-2">
+  <input
+    type="text"
+    id="title"
+    name="title"
+    placeholder="Title..."
+formControlName="title"
+    class="flex-1 border-none text-gray-950 text-4xl text-opacity-100 mt-1 block w-full px-3 py-2 rounded-md font-extrabold  outline-none"
+  />
+  <div class="relative inline-flex group">
+    <div
+      class="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"
+    ></div>
+
+    <button
+      [disabled]="!form.valid"
+      type="submit"
+      title="Publish"
+      class="relative inline-flex items-center justify-center px-4 py-2 text-lg font-bold text-white transition-all duration-200 bg-gray-900 font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+      [ngClass]="{ 'text-gray-400 cursor-not-allowed': !form.valid }"
+      role="button"
+    >
+    <span *ngIf="!isLoading">
+      Publish
+    </span>
+      <span  *ngIf="isLoading">
+        <div class="inline-block animate-spin rounded-full h-5 w-5 border-b-2 bg-white  border-gray-900"></div>
+     </span>
+
+      </button>
+  </div>
+</div>
+<!-- Notes Section -->
+<div>
+
+    <div class="flex flex-col gap-4">
+
+      <ngx-editor-menu  [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+
+      <ngx-editor  [editor]="editor" formControlName="editorContent" > </ngx-editor>
+
+    </div>
+
+</div>
+
+</form>
+
+</div>
+

@@ -1,0 +1,18 @@
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 m-5">
+  <article *ngFor="let note of userNotes; let i = index" class="relative flex flex-col text-start justify-between overflow-hidden rounded-lg shadow-lg p-6 transform transition-transform hover:scale-105 max-w-sm mx-auto mt-6"
+           [ngStyle]="{'background': getGradient(i)}">
+    <h3 class="text-2xl font-semibold text-white mb-2">{{ note.title }}</h3>
+    <div class="text-sm text-white mb-4">{{ note.created_at | date:'MMM d, y' }}</div>
+    <p class="text-base text-white mb-6">{{ note.content | truncate:100 }}</p>
+    <div class="flex justify-between items-center mt-auto">
+      <a [routerLink]="['/note', note.id]" class="text-white bg-blue-600 hover:bg-blue-800 px-3 py-1 rounded">Read More</a>
+      <button class=" text-red-600 hover:text-red-800 px-3 py-1 rounded flex items-center"
+      (click)="deleteNote(note.id)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-4 h-4 mr-2"><!-- Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+        <path fill="red" d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+      </svg>
+      </button>
+
+    </div>
+  </article>
+</div>
