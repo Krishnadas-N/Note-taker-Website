@@ -59,8 +59,17 @@ export const getUserNotes = async (
 ): Promise<void> => {
   try {
     const userId = req.user;
-    const getNotesQuery = "SELECT * FROM notes WHERE user_id = $1";
-    const { rows } = await query(getNotesQuery, [userId]);
+    const searchQuery = req.query.search as string;
+
+    let getNotesQuery = "SELECT * FROM notes WHERE user_id = $1";
+    const queryParams = [userId];
+
+    if (searchQuery) {
+      getNotesQuery += " AND (title ILIKE $2 OR content ILIKE $2)";
+      queryParams.push(`%${searchQuery}%`);
+    }
+
+    const { rows } = await query(getNotesQuery, queryParams);
 
     return sendSuccessResponse(res, rows, 200);
   } catch (error) {
@@ -86,6 +95,36 @@ export const getNoteDetails = async (
     }
 
     return sendSuccessResponse(res, rows[0], 200);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export const editNote = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const noteId = req.params.noteId;
+    const userId = req.user;
+    const { title, editorContent } = req.body;
+
+    const updateNoteQuery =
+      "UPDATE notes SET title = $1, content = $2, updated_at = NOW() WHERE id = $3 AND user_id = $4 RETURNING *";
+    const { rows } = await query(updateNoteQuery, [
+      title,
+      editorContent,
+      noteId,
+      userId,
+    ]);
+
+    if (rows.length === 0) {
+      throw new CustomError("Note not found or user unauthorized", 404);
+    }
+
+    return sendSuccessResponse(res, "Note updated successfully", 200);
   } catch (error) {
     next(error);
   }

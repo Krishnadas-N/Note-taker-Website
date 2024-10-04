@@ -5,6 +5,7 @@ import {
   getNoteDetails,
   getUserNotes,
   getCurrentUser,
+  editNote,
 } from "../controllers/userController";
 import { authenticateJWT } from "../middlewares/authMiddleware";
 
@@ -19,5 +20,7 @@ userRouter.get("/get-note/:noteId", authenticateJWT, getNoteDetails);
 userRouter.delete("/delete-note/:noteId", authenticateJWT, deleteNote);
 
 userRouter.get("/get-user", authenticateJWT, getCurrentUser);
+
+userRouter.put("/edit-note/:noteId", authenticateJWT, editNote);
 
 export default userRouter;
