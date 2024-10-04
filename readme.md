@@ -1,77 +1,270 @@
-### NoteTaker Project Description
 
-**Project Name:** NoteTaker
+# Note-Taker Website
 
-**Project Overview:**
-NoteTaker is a web application designed to provide users with a simple and efficient platform to take, save, and manage notes. With features like a rich text editor, secure user authentication, and a sleek user interface, NoteTaker aims to enhance productivity by offering a seamless note-taking experience. Users can create, view, edit, and delete their notes, ensuring their thoughts and information are always organized and easily accessible.
+This is a **Note-Taker Website** that allows users to create, save, and manage personal notes. The project consists of two main components: the **Frontend** (Angular) and the **Backend** (Node.js with Express). The frontend integrates Firebase for Google login authentication, and the backend serves the API for data persistence.
 
-**Key Features:**
+## Table of Contents
+- [Frontend Setup](#frontend-setup)
+- [Backend Setup](#backend-setup)
+- [Firebase Setup for Google Login](#firebase-setup-for-google-login)
+- [Running the Project](#running-the-project)
+- [Setting Authentication Sites for Google](#setting-authentication-sites-for-google)
 
-1. **User Authentication:**
-   - **Google OAuth Integration:** Users can sign up and log in using their Google accounts for a quick and secure authentication process.
-   - **JWT-Based Authentication:** Secure user sessions using JSON Web Tokens (JWT) to protect user data and ensure only authorized access.
+---
 
-2. **Rich Text Editor:**
-   - A powerful and intuitive text editor to format notes with various styles, lists, links, and more, providing a versatile note-taking experience.
+## Frontend Setup
 
-3. **Note Management:**
-   - **Create Notes:** Easily create new notes with a title, content, and optional tags.
-   - **View Notes:** A dedicated page to view note details with formatted content.
-   - **Edit Notes:** Modify existing notes to keep information up-to-date.
-   - **Delete Notes:** Remove notes that are no longer needed with a simple action.
+The frontend is built using **Angular**, and it communicates with the backend API and uses **Firebase** for Google authentication.
 
-4. **Note Listing:**
-   - Display a list of user notes with titles and creation dates.
-   - Notes are presented in a visually appealing grid layout with smooth hover effects and animations.
+### Prerequisites
+- **Node.js**: Ensure Node.js is installed on your system.
+- **Angular CLI**: Install Angular CLI globally using the command:
+  ```bash
+  npm install -g @angular/cli
+  ```
 
-5. **Sanitization and Security:**
-   - All note content is sanitized before display to prevent XSS attacks and ensure the integrity of user data.
+### Steps to Set Up Frontend
 
-6. **Responsive Design:**
-   - The application is designed to be fully responsive, ensuring a seamless experience across various devices, including desktops, tablets, and mobile phones.
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/Krishnadas-N/Note-taker-Website.git
+  cd new_foldername
+  cd Frontend
+   ```
 
-**Technology Stack:**
+2. **Install Dependencies**
+   Run the following command to install the required packages:
+   ```bash
+   npm install
+   ```
 
-- **Frontend:**
-  - Angular for building a dynamic and responsive user interface.
-  - Tailwind CSS for modern and customizable styling.
+3. **Environment Configuration**
+   The frontend requires configuration for both the backend API and Firebase. Modify the environment configuration in `src/environments/environment.ts`:
 
-- **Backend:**
-  - Node.js and Express for creating a robust and scalable server-side application.
-  - TypeScript for type-safe code and better maintainability.
-  - MongoDB for a flexible and scalable NoSQL database to store user data and notes.
+   ```typescript
+   export const environment = {
+     production: false,
+     backendUrl: "http://127.0.0.1:3000", // Backend API URL
+     firebaseConfig: {
+       apiKey: "<your-firebase-api-key>",
+       authDomain: "<your-firebase-auth-domain>",
+       projectId: "<your-firebase-project-id>",
+       storageBucket: "<your-firebase-storage-bucket>",
+       messagingSenderId: "<your-firebase-messaging-sender-id>",
+       appId: "<your-firebase-app-id>",
+       measurementId: "<your-firebase-measurement-id>"
+     }
+   };
+   ```
 
-**Modules:**
+4. **Firebase Setup**
+   Ensure that Firebase is correctly configured for Google login (see the **Firebase Setup for Google Login** section below).
 
-1. **User Module:**
-   - Handles user registration, login, and authentication.
-   - Manages user profiles and authentication tokens.
+5. **Run the Frontend**
+   After setting up, you can start the Angular development server with:
+   ```bash
+   ng serve
+   ```
+   The frontend will be accessible at `http://localhost:4200`.
 
-2. **Note Module:**
-   - Provides endpoints for creating, reading, updating, and deleting notes.
-   - Ensures that note data is sanitized and securely stored in the database.
+---
 
-3. **Editor Module:**
-   - Integrates a rich text editor for note creation and editing.
-   - Supports text formatting, links, lists, and other essential editing features.
+# Note-Taker Website Backend
 
-**Usage:**
+This is the **Backend** of the Note-Taker Website, built using **Node.js**, **Express**, and **TypeScript**. It provides REST APIs for managing user notes, handles authentication using JWT, and integrates with Firebase for admin authentication.
 
-- **For Users:**
-  - Sign up or log in using Google authentication.
-  - Create new notes with formatted text and save them securely.
-  - View a list of saved notes and click on any note to view its details.
-  - Edit or delete notes as needed to keep your note collection organized.
+## Table of Contents
+- [Backend Setup](#backend-setup)
+- [Environment Configuration (.env)](#environment-configuration-env)
+- [Firebase Admin Setup](#firebase-admin-setup)
+- [Scripts](#scripts)
+- [Running the Project](#running-the-project)
+- [License](#license)
 
-- **For Developers:**
-  - Extend the functionality by adding more features like note tagging, sharing, or collaboration.
-  - Customize the user interface to match specific design requirements or branding guidelines.
+---
 
-**Conclusion:**
-NoteTaker offers a comprehensive and user-friendly platform for managing personal notes. By leveraging modern web technologies and ensuring secure data handling, NoteTaker aims to be the go-to solution for individuals seeking an efficient and stylish note-taking experience.
+## Backend Setup
 
+Follow these steps to set up and run the backend for the Note-Taker Website.
+
+### Prerequisites
+
+- **Node.js** (LTS version recommended)
+- **npm** (comes with Node.js)
+- **MongoDB** (Ensure MongoDB is installed and running, if applicable)
+- **Firebase** account (for admin authentication)
+
+### Steps to Set Up the Backend
+
+1. **Clone the Repository**
+   ```bash
+  
+   cd Backend
+   ```
+
+2. **Install Dependencies**
+   Install all required dependencies by running:
+   ```bash
+   npm install
+   ```
+
+3. **Environment Configuration**
+   Create a `.env` file in the root of the project with the following variables:
+
+   ```bash
+   JWT_TOKEN_SECRET=<your-jwt-secret>
+   JWT_REFRESH_SECRET=<your-jwt-refresh-secret>
+
+   DB_HOST=<your-database-host>
+   DB_PORT=<your-database-port>
+   DB_USER=<your-database-user>
+   DB_PASSWORD=<your-database-password>
+   DB_NAME=<your-database-name>
+
+   FIREBASE_SERVICE_ACCOUNT='{
+     "type": "service_account",
+     "project_id": "<your-firebase-project-id>",
+     "private_key_id": "<your-firebase-private-key-id>",
+     "private_key": "-----BEGIN PRIVATE KEY-----\\n<your-private-key>\\n-----END PRIVATE KEY-----\\n",
+     "client_email": "<your-firebase-client-email>",
+     "client_id": "<your-firebase-client-id>",
+     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+     "token_uri": "https://oauth2.googleapis.com/token",
+     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/<your-client-email>",
+     "universe_domain": "googleapis.com"
+   }'
+   ```
+
+   **Note:** Replace `<your-...>` placeholders with actual values from your Firebase project and database configuration.
+
+4. **Firebase Admin Setup**
+   Follow the steps below to create the Firebase Admin SDK for your backend authentication:
+
+   ### Firebase Admin Setup
+   1. Go to the [Firebase Console](https://console.firebase.google.com/).
+   2. Click on your project.
+   3. In the left-hand menu, go to **Project Settings**.
+   4. Scroll down to the **Service Accounts** tab.
+   5. Click on **Generate New Private Key**, and it will download a `.json` file.
+   6. Open the `.json` file and copy its contents to set the `FIREBASE_SERVICE_ACCOUNT` in your `.env` file (as shown above).
+
+   This setup enables Firebase admin SDK for server-side authentication and authorization.
+
+---
+
+## Scripts
+
+The following are the available **npm scripts** defined in the `package.json`:
+
+- **`build`**: Transpile the TypeScript code to JavaScript.
+  ```bash
+  npm run build
+  ```
+
+- **`start`**: Start the server using `nodemon` for live reloading.
+  ```bash
+  npm run start
+  ```
+
+- **`dev`**: Run the build and the server in parallel for development.
+  ```bash
+  npm run dev
+  ```
+
+---
+
+## Running the Project
+
+After configuring the environment and installing dependencies, follow these steps to run the project:
+
+1. **Build the Project**
+   Compile the TypeScript code into JavaScript:
+   ```bash
+   npm run build
+   ```
+
+2. **Start the Server**
+   Run the server using `nodemon`:
+   ```bash
+   npm run start
+   ```
+
+3. **Run in Development Mode**
+   To run the server and watch for changes, use the following command:
+   ```bash
+   npm run dev
+   ```
+
+The backend server should now be running on `http://127.0.0.1:3000`.
+
+## Firebase Setup for Google Login
+
+To integrate Google login via Firebase, follow these steps:
+
+1. **Create a Firebase Project**
+   - Go to [Firebase Console](https://console.firebase.google.com/).
+   - Click on **Add Project** and follow the instructions.
+
+2. **Enable Google Authentication**
+   - In the Firebase Console, navigate to **Authentication**.
+   - Under the **Sign-in method** tab, enable **Google**.
+
+3. **Get Firebase Configuration**
+   - Navigate to **Project Settings** and under the **General** tab, find your Firebase SDK configuration.
+   - Copy the following values: `apiKey`, `authDomain`, `projectId`, `storageBucket`, `messagingSenderId`, `appId`, `measurementId`.
+   - Paste these values in your frontend’s `environment.ts` file.
+
+4. **Install Firebase and AngularFire**
+   Install Firebase and AngularFire in your Angular project:
+   ```bash
+   npm install firebase @angular/fire
+   ```
+
+
+## Running the Project
+
+To run the full project (both frontend and backend):
+
+1. **Run Backend**
+   Open a terminal, navigate to your backend directory, and run:
+   ```bash
+   npm start
+   ```
+
+2. **Run Frontend**
+   In a new terminal, navigate to your frontend directory, and run:
+   ```bash
+   ng serve
+   ```
+
+The frontend will run at `http://localhost:4200` and the backend at `http://127.0.0.1:3000`.
+
+---
+
+## Setting Authentication Sites for Google
+
+To ensure Google login works, the domain needs to be set in Firebase's authentication settings.
+
+1. **Add Authorized Domains in Firebase**
+   - Go to your Firebase project and navigate to **Authentication** > **Settings**.
+   - Under **Authorized domains**, add the following:
+     - `localhost` for local development.
+     - Your production domain (e.g., `your-domain.com`).
+
+2. **Configure OAuth Consent Screen**
+   - Go to the **Google Cloud Console**.
+   - Navigate to **APIs & Services** > **OAuth consent screen**.
+   - Ensure your application is listed and verified, and that the authorized domain for OAuth matches your app’s domain.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 [API DOCUMENTAION ](https://documenter.getpostman.com/view/33513010/2sA3XTfgG3)
 
  [Figma](https://www.figma.com/design/p3oBAjMPFbyGlSme7S2qeS/note-taker?node-id=0-1&t=MUhJfy7eszXfXPW9-1)
  
+

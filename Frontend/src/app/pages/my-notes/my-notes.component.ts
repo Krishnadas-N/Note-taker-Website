@@ -50,7 +50,6 @@ export class MyNotesComponent implements OnInit {
       this.userService.deleteNote(noteId).pipe(
         tap(() => {
           const idx = this.userNotes.findIndex(note => note.id === noteId);
-console.log(idx,this.userNotes)
           if (idx !== -1) {
             this.userNotes.splice(idx, 1); // Remove 1 element at index idx
             this.uiService.hideLoading()
